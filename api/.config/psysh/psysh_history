@@ -1,4 +1,0 @@
-Task::factory()->count(5)->make();
-App\Models\Task::factory()->count(5)->make();
-Task::factory()->count(5)->make();
-Task::factory()->count(5)->create();

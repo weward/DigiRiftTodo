@@ -17,5 +17,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-**/**.log
+/docker/log/**
 /.composer
+/.config/**
+/docker/**/*.Identifier
