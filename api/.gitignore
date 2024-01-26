@@ -21,3 +21,4 @@ yarn-error.log
 /.composer
 /.config/**
 /docker/**/*.Identifier
+/docker**/*.sock

@@ -39,4 +39,13 @@ class TaskFactory extends Factory
             ];
         });
     }
+
+    public function name($input = ''): Factory
+    {
+        return $this->state(function (array $attributes) use ($input) {
+            return [
+                'name' => $input != '' ? $input : fake()->catchPhrase,
+            ];
+        });
+    }
 }

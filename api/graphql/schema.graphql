@@ -5,12 +5,12 @@ type Query {
     task(
       id: ID @eq 
       name: String @eq @rules(apply: ["required"])
-      status: String
     ): Task @find
 
     tasks(
       id: ID @eq 
       name: String @where(operator: "like")
+      status: Boolean @where(key: "status")
     ): [Task!]! @all
 }
 
