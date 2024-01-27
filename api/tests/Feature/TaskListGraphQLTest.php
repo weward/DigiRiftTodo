@@ -4,14 +4,20 @@ namespace Tests\Feature;
 
 use App\Models\Task;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Tests\CreatesApplication;
 
-class TaskListGraphQLTest extends TestCase
+class TaskListGraphQLTest extends BaseTestCase
 {
-    use MakesGraphQLRequests, RefreshDatabase;
+    use CreatesApplication;
+    use MakesGraphQLRequests;
+    use RefreshesSchemaCache;
+    use RefreshDatabase;
+
     /**
      * A basic feature test example.
      */

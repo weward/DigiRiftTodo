@@ -61,6 +61,12 @@ docker exec -it DigiRiftTodo_php composer install
 docker exec -it DigiRiftTodo_php php artisan key:generate 
 ```
 
+- Migrate the database
+
+```sh
+docker exec -it DigiRiftTodo_php php artisan migrate 
+```
+
 - Run the application
 
 ```sh

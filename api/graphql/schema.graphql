@@ -1,6 +1,14 @@
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
+type Task {
+  id: ID! 
+  name: String! 
+  status: Boolean!
+  created_at: DateTime! 
+  updated_at: DateTime!
+}
+
 type Query {
     task(
       id: ID @eq 
@@ -14,10 +22,19 @@ type Query {
     ): [Task!]! @all
 }
 
-type Task {
-  id: ID! 
-  name: String! 
-  status: Boolean!
-  created_at: DateTime! 
-  updated_at: DateTime!
+type Mutation {
+  createTask(
+    name: String!
+  ): Task @create
+
+  updateTask(
+    id: ID!
+  ): Task @field(resolver: "UpdateTaskMutator")
+
+  deleteTask(
+    id: ID
+    status: Boolean 
+  ): Boolean @field(resolver: "DeleteTaskMutator")
+
 }
+
