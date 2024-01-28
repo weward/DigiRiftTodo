@@ -34,7 +34,7 @@ const tasksDone = computed(() => data.tasks?.filter((elem) => elem.status == tru
 const tasksTodo = computed(() => data.tasks?.filter((elem) => elem.status == false))
 
 watch(() => taskStore.tasks, async (newVal) => {
-    data.tasks = await JSON.parse(newVal)
+    data.tasks = await newVal
 })
 
 </script>

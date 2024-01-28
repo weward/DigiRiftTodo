@@ -45,9 +45,9 @@ const entity = reactive({
     selected: [],
 })
 
-
+// on checkbox checked
 watch(() => entity.selected, async(updatedSelected) => {
-        // update task
+        // update local state's status
         entity.tasks = await entity.tasks.map((elem) => 
             elem = {
                 ...elem, 
@@ -56,9 +56,13 @@ watch(() => entity.selected, async(updatedSelected) => {
         )    
         // update store
         await taskStore.updateTasks(entity.tasks)
-        await localStorage.setItem('selectedTasks', JSON.stringify(updatedSelected))
     }
 )
+
+watch(() => taskStore.tasks, async (updatedTasks) => {
+    // update locacl state whenever the store gets updated
+    entity.tasks =  await updatedTasks
+})
 
 const fetchAll = async () => {
     // request object
@@ -77,11 +81,12 @@ const fetchAll = async () => {
     entity.tasks = await data?.value?.tasks
     // set selected
     entity.selected = await entity.tasks.filter((elem) => elem.status == true).map((elem) => elem.id)
-    
+    // update store
     await taskStore.updateTasks(entity.tasks)
 }
 
 onMounted(() => {
+    // fetch all from server
     fetchAll()
 })
 

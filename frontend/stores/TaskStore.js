@@ -1,7 +1,6 @@
 export const useTaskStore = defineStore('task', {
   state: () => ({ 
     tasks: JSON.parse(localStorage?.getItem('tasks')),
-    
   }),
 
   getters: {
@@ -11,11 +10,9 @@ export const useTaskStore = defineStore('task', {
   actions: {
     async updateTasks(payload) {
       const tasks = await JSON.stringify(payload)
+
       await localStorage.setItem('tasks', tasks)
-      this.tasks = await tasks
-    },
-    increment() {
-      this.count++
+      this.tasks = await payload
     },
   },
 })
