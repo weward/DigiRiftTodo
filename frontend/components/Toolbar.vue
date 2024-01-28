@@ -9,9 +9,9 @@
         >
         <div class="w-100 d-flex justify-end">
             
-            <TodoButton></TodoButton>
+            <TodoButton :count="tasksTodo?.length"></TodoButton>
             
-            <DoneButton></DoneButton>
+            <DoneButton :count="tasksDone?.length"></DoneButton>
 
             <DeleteAllTodo v-show="tasksTodo?.length"></DeleteAllTodo>
 

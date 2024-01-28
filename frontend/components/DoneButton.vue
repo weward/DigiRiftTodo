@@ -1,11 +1,11 @@
 <template>
     <v-chip
         class="ma-2"
-        color="green">
+        color="gray">
         <template v-slot:prepend>
             <v-badge
-                color="green"
-                content="6"
+                color="grey"
+                :content="count"
                 inline
                 class="pa-1"
             ></v-badge>
@@ -13,3 +13,15 @@
         Done
     </v-chip>
 </template>
+
+<script setup>
+
+const props = defineProps({
+    count: {
+        required: true,
+        default: 0
+    }
+})
+
+
+</script>
