@@ -31,7 +31,7 @@ class TaskFactory extends Factory
         });
     }
 
-    public function active(): Factory
+    public function todo(): Factory
     {
         return $this->state(function (array $attributes) {
             return [

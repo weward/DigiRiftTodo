@@ -1,8 +1,8 @@
 <template>
-    <div class="d-flex justify-center mb-6 bg-surface-variant h-100">
+    <div class="d-flex justify-center bg-surface-variant h-100">
         <v-col align-self="center" sm="12" md="6" lg="4" xl="3">
             
-            <v-sheet class="d-flex justify-center mb-6 bg-surface-variant">
+            <v-sheet class="d-flex justify-center bg-surface-variant">
                 <div class="w-100">
                     
                     <AppLabel></AppLabel>

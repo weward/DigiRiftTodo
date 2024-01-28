@@ -17,6 +17,6 @@ class TaskSeeder extends Seeder
         Task::factory()->done()->count(2)->create();
 
         // Create a task that is still active
-        Task::factory()->active()->count(2)->create();
+        Task::factory()->todo()->count(2)->create();
     }
 }

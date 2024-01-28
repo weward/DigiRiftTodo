@@ -46,7 +46,7 @@ class TaskDeleteGraphQLTest extends BaseTestCase
     public function test_delete_all_task_by_specified_status(): void
     {
         Task::factory()->done()->count(3)->create();
-        Task::factory()->active()->count(3)->create();
+        Task::factory()->todo()->count(3)->create();
 
         $this->assertEquals(Task::count(), 6);
 
