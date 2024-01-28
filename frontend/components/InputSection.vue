@@ -6,7 +6,7 @@
             :loading="entity.loading"
             density="compact"
             variant="solo"
-            label="Search templates"
+            label="Add New Task"
             append-inner-icon="mdi-plus-circle"    
             single-line
             hide-details
