@@ -15,9 +15,14 @@ LinkedIn: https://www.linkedin.com/in/roland-edward-santos/
     - [Frontend Installation](#frontend-nuxt-installation)
 - [Tech Stack](#tech-stack)
 - [Notes](#notes)
+    - [Task Factory](#taskfactory)
     - [CORS](#cors)
     - [User Stories](#user-stories)
     - [Sample Data - (Request / Response)](#sample-data)
+    - [Improvements](#improvements)
+    - [Testing](#testing)
+
+    
 
 
 
@@ -118,7 +123,7 @@ cd frontend
 # Copy default
 cp .env.example .env
 
-# Update the API url (laravel)
+# Update the API url (laravel) 
 GRAPHQL_URL=
 
 ```
