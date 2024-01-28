@@ -1,7 +1,7 @@
 <template>
     <v-list class="list-height">
         <perfect-scrollbar>
-            <v-list-item v-for="task in entity.tasks" :key="task.id">
+            <v-list-item v-for="task in entity.tasks" :key="task.id" class="list-item">
                         
                 <template v-slot:prepend>
                     <v-list-item-action start>
