@@ -21,10 +21,11 @@
                     <template v-slot:default="{ isHovering, props }">
                         <v-btn
                             class="hover-btn"
-                                v-bind="props"
+                            v-bind="props"
                             :color="isHovering ? 'red-lighten-1' : 'brown-lighten-5'"
                             icon="mdi-delete"
                             variant="text"
+                            @click="() => deleteTask('id', task.id)"
                         ></v-btn>
                     </template>
                 </v-hover>
@@ -59,37 +60,23 @@ const updateSelected = async (updatedSelected, oldSelected) => {
     taskId = await taskId[0] ?? false
 
     if (taskId) {
-        entity.tasks = await entity.tasks.map((elem) =>
-            elem = {
-                ...elem,
-                status: (elem.id==taskId) ? !elem.status : elem.status
-            }
-        )
-        
-        const query = await gql`
-            mutation updateTask ($TASK_ID: ID!) {
-                updateTask(id: $TASK_ID) {
-                    id
-                    name
-                    status
-                }
-            }
-        `
-        // compose variable
-        const variables = await {
-            TASK_ID: taskId
-        }
-        // form mutation
-        const { mutate } = await useMutation(query, { variables })
-        // send to api
-        const { data } = await mutate(variables)
-        if (data.updateTask) {
-            // Update store state
-            let tasks = await taskStore.getTasks
+        // update via API
+        const res = taskStore.updateTaskApi(taskId)
 
-            await taskStore.updateTasks([...tasks, data.updateTask])
+        if (res) {
+            // Update store state
+            entity.tasks = await entity.tasks.map((elem) =>
+                elem = {
+                    ...elem,
+                    status: (elem.id == taskId) ? !elem.status : elem.status
+                }
+            )
         }
     }
+}
+
+const deleteTask = (type, payload) => {
+    taskStore.deleteTaskApi(type, payload)
 }
 
 

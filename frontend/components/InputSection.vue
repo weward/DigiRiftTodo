@@ -31,29 +31,9 @@ const addTask = async() => {
     let input = await entity.task.trim()
 
     if (input) {
-        const query = await gql`
-            mutation createTask ($INPUT: String!) {
-                createTask(name: $INPUT) {
-                    id
-                    name
-                    status
-                }
-            }
-        `
-        const variables = await {
-            INPUT: input
-        }
-        // form mutation
-        const { mutate } = await useMutation(query, { variables })
-        // send to api
-        const { data } = await mutate(variables)
-        // append to list
-        let tasks = await taskStore.getTasks
+        let res = await taskStore.createTaskApi(input)
 
-        if (data.createTask) {
-            await tasks.push(data.createTask)
-            await taskStore.updateTasks(tasks)
-    
+        if (res) {
             entity.task = await ''
         }
     }
