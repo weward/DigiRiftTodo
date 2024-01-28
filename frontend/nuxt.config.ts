@@ -1,6 +1,6 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
-  //...
+  ssr: false,
   build: {
     transpile: ['vuetify'],
   },
@@ -12,6 +12,7 @@ export default defineNuxtConfig({
       })
     },
     '@pinia/nuxt',
+    '@nuxtjs/apollo'
     //...
   ],
   pinia: {
@@ -24,4 +25,21 @@ export default defineNuxtConfig({
       },
     },
   },
+  apollo: {
+    clients: {
+      default: {
+        httpEndpoint: ''+process.env.GRAPHQL_URL + '',
+        tokenStorage: 'cookie',
+        httpLinkOptions: {
+          fetchOptions: {
+            mode: 'cors' //Cors Needed for external Cross origins, need to allow headers from server
+          },
+          credentials: 'omit'
+        },
+        inMemoryCacheOptions: {
+          addTypename: false
+        }
+      }
+    }
+  }
 })

@@ -13,9 +13,9 @@
             
             <DoneButton></DoneButton>
 
-            <DeleteAllTodo></DeleteAllTodo>
+            <DeleteAllTodo v-show="tasksTodo?.length"></DeleteAllTodo>
 
-            <DeleteAllDone></DeleteAllDone>
+            <DeleteAllDone v-show="tasksDone?.length"></DeleteAllDone>
 
         </div>
     </v-toolbar>
@@ -24,5 +24,17 @@
 
 <script setup>
 
+const taskStore = useTaskStore()
+
+const data = reactive({
+    tasks: [],
+})
+
+const tasksDone = computed(() => data.tasks?.filter((elem) => elem.status == true))
+const tasksTodo = computed(() => data.tasks?.filter((elem) => elem.status == false))
+
+watch(() => taskStore.tasks, async (newVal) => {
+    data.tasks = await JSON.parse(newVal)
+})
 
 </script>

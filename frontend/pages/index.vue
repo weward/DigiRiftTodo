@@ -22,6 +22,6 @@
 <script setup>
 
     let onClick = () => {
-        console.log("test add")
+        
     }
 </script>
