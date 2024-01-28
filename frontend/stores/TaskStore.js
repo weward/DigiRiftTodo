@@ -10,12 +10,14 @@ export const useTaskStore = defineStore('task', {
   actions: {
     async updateTasks(payload) {
       const tasks = await JSON.stringify(payload)
-      
+
       await localStorage.setItem('tasks', tasks)
       this.tasks = await payload
     },
+
     /**
      * Create a new Task
+     * 
      * @param {String} input  name
      */
     async createTaskApi(input) {
@@ -48,6 +50,12 @@ export const useTaskStore = defineStore('task', {
 
         return await false
     },
+
+    /**
+     * Update a task status when toggled
+     * 
+     * @param {ID} taskId  task ID
+     */
     async updateTaskApi(taskId) {
       const query = await gql`
             mutation updateTask ($TASK_ID: ID!) {
@@ -81,6 +89,13 @@ export const useTaskStore = defineStore('task', {
 
         return await data.updateTasks
     },
+
+    /**
+     * Delete a Task by id or delete multiple tasks by status
+     * 
+     * @param {String} type      "id" | "status"
+     * @param {ID | Boolean} payload   task ID | status(true/false)
+     */
     async deleteTaskApi(type, payload) {
       const query = await (type == 'id') 
         ?   gql`
@@ -89,7 +104,7 @@ export const useTaskStore = defineStore('task', {
           }
         `
         :  gql`
-          mutation deleteTask($STATUS: String!) {
+          mutation deleteTask($STATUS: Boolean!) {
               deleteTask(status: $STATUS)
           }
         `

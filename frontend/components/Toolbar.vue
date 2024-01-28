@@ -13,9 +13,15 @@
             
             <DoneButton :count="tasksDone?.length"></DoneButton>
 
-            <DeleteAllTodo v-show="tasksTodo?.length"></DeleteAllTodo>
+            <DeleteAllTodo 
+                @click="deleteAllTasks('status', false)"
+                v-show="tasksTodo?.length">
+            </DeleteAllTodo>
 
-            <DeleteAllDone v-show="tasksDone?.length"></DeleteAllDone>
+            <DeleteAllDone 
+                @click="deleteAllTasks('status', true)"
+                v-show="tasksDone?.length">
+            </DeleteAllDone>
 
         </div>
     </v-toolbar>
@@ -29,6 +35,10 @@ const taskStore = useTaskStore()
 const data = reactive({
     tasks: [],
 })
+
+const deleteAllTasks = (type, payload) => {
+    taskStore.deleteTaskApi(type, payload)
+}
 
 const tasksDone = computed(() => data.tasks?.filter((elem) => elem.status == true))
 const tasksTodo = computed(() => data.tasks?.filter((elem) => elem.status == false))
