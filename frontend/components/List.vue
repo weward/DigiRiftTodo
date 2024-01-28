@@ -1,37 +1,38 @@
 <template>
-    <v-list>
+    <v-list class="list-height">
+        <perfect-scrollbar>
+            <v-list-item v-for="task in entity.tasks" :key="task.id">
+                        
+                <template v-slot:prepend>
+                    <v-list-item-action start>
+                        <v-checkbox-btn 
+                            v-model="entity.selected"
+                            :value="task.id"
+                        ></v-checkbox-btn>
+                    </v-list-item-action>
+                </template>
 
-        <v-list-item v-for="task in entity.tasks" :key="task.id" class="list-item">
-                    
-            <template v-slot:prepend>
-                <v-list-item-action start>
-                    <v-checkbox-btn 
-                        v-model="entity.selected"
-                        :value="task.id"
-                    ></v-checkbox-btn>
-                </v-list-item-action>
-            </template>
+                <v-list-item-title>
+                    <span :class="{'text-decoration-line-through text-disabled': task.status}">{{ task.name }}</span>
+                </v-list-item-title>
 
-            <v-list-item-title>
-                <span :class="{'text-decoration-line-through text-disabled': task.status}">{{ task.name }}</span>
-            </v-list-item-title>
-
-            <template v-slot:append>
-                <v-hover>
-                    <template v-slot:default="{ isHovering, props }">
-                        <v-btn
-                            class="hover-btn"
-                            v-bind="props"
-                            :color="isHovering ? 'red-lighten-1' : 'brown-lighten-5'"
-                            icon="mdi-delete"
-                            variant="text"
-                            @click="() => deleteTask('id', task.id)"
-                        ></v-btn>
-                    </template>
-                </v-hover>
-            </template>
-            
-    </v-list-item>
+                <template v-slot:append>
+                    <v-hover>
+                        <template v-slot:default="{ isHovering, props }">
+                            <v-btn
+                                class="hover-btn"
+                                v-bind="props"
+                                :color="isHovering ? 'red-lighten-1' : 'brown-lighten-5'"
+                                icon="mdi-delete"
+                                variant="text"
+                                @click="() => deleteTask('id', task.id)"
+                            ></v-btn>
+                        </template>
+                    </v-hover>
+                </template>
+                
+        </v-list-item>
+    </perfect-scrollbar>
 
 </v-list>
 </template>
@@ -124,7 +125,10 @@ onMounted(() => {
 .hover-btn {
   transition: transform 0.3s;
 }
-
+.ps {
+    max-height: 360px;
+    height: 360px;
+}
 .list-item:hover {
     background-color: #f0f0f0;
 }
