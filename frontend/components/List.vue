@@ -43,28 +43,67 @@ const taskStore = useTaskStore()
 const entity = reactive({
     tasks: [],
     selected: [],
+    doneLoading: false,
 })
 
-// on checkbox checked
-watch(() => entity.selected, async(updatedSelected) => {
-        // update local state's status
-        entity.tasks = await entity.tasks.map((elem) => 
-            elem = {
-                ...elem, 
-                status: (entity.selected.includes(elem.id)) ? true : false
-            }
-        )    
-        // update store
-        await taskStore.updateTasks(entity.tasks)
+const updateSelected = async (updatedSelected, oldSelected) => {
+    // execute only after first load
+    if  (!entity.doneLoading) {
+        return
     }
-)
+
+    let taskId = await (updatedSelected.length > oldSelected.length) 
+        ? updatedSelected.filter(id => !oldSelected.includes(id))
+        : oldSelected.filter(id => !updatedSelected.includes(id))
+
+    taskId = await taskId[0] ?? false
+
+    if (taskId) {
+        entity.tasks = await entity.tasks.map((elem) =>
+            elem = {
+                ...elem,
+                status: (elem.id==taskId) ? !elem.status : elem.status
+            }
+        )
+        
+        const query = await gql`
+            mutation updateTask ($TASK_ID: ID!) {
+                updateTask(id: $TASK_ID) {
+                    id
+                    name
+                    status
+                }
+            }
+        `
+        // compose variable
+        const variables = await {
+            TASK_ID: taskId
+        }
+        // form mutation
+        const { mutate } = await useMutation(query, { variables })
+        // send to api
+        const { data } = await mutate(variables)
+        if (data.updateTask) {
+            // Update store state
+            let tasks = await taskStore.getTasks
+
+            await taskStore.updateTasks([...tasks, data.updateTask])
+        }
+    }
+}
+
 
 watch(() => taskStore.tasks, async (updatedTasks) => {
     // update locacl state whenever the store gets updated
     entity.tasks =  await updatedTasks
 })
 
+// whenever a checkbox is checked
+watch(() => entity.selected, (newVal, oldVal) => updateSelected(newVal, oldVal))
+
+
 const fetchAll = async () => {
+    entity.doneLoading = await false
     // request object
     const query = await gql`
         {
@@ -83,6 +122,8 @@ const fetchAll = async () => {
     entity.selected = await entity.tasks.filter((elem) => elem.status == true).map((elem) => elem.id)
     // update store
     await taskStore.updateTasks(entity.tasks)
+
+    entity.doneLoading = await true
 }
 
 onMounted(() => {

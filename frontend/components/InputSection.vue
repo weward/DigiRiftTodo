@@ -50,10 +50,12 @@ const addTask = async() => {
         // append to list
         let tasks = await taskStore.getTasks
 
-        await tasks.push(data.createTask)
-        await taskStore.updateTasks(tasks)
-
-        entity.task = await ''
+        if (data.createTask) {
+            await tasks.push(data.createTask)
+            await taskStore.updateTasks(tasks)
+    
+            entity.task = await ''
+        }
     }
 }
 
