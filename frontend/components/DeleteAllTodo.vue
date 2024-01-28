@@ -1,5 +1,6 @@
 <template>
     <v-chip
+        size="small"
         class="ma-2"
         color="error">
         <template v-slot:prepend>

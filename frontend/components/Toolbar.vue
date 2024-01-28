@@ -7,8 +7,8 @@
             density="comfortable"
             :elevation="8"
             title="">
-            <div class="w-100 d-flex justify-end">
-                
+            <div class="w-100 d-flex justify-center">
+
                 <TodoButton :count="tasksTodo?.length"></TodoButton>
                 
                 <DoneButton :count="tasksDone?.length"></DoneButton>

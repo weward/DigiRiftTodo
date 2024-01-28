@@ -1,5 +1,6 @@
 <template>
     <v-chip
+        size="small"
         class="ma-2"
         color="gray">
         <template v-slot:prepend>
@@ -7,7 +8,6 @@
                 color="grey"
                 :content="count"
                 inline
-                class="pa-1"
             ></v-badge>
         </template>
         Done
