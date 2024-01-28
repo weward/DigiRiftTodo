@@ -10,7 +10,7 @@ export const useTaskStore = defineStore('task', {
   actions: {
     async updateTasks(payload) {
       const tasks = await JSON.stringify(payload)
-
+      
       await localStorage.setItem('tasks', tasks)
       this.tasks = await payload
     },
@@ -67,14 +67,16 @@ export const useTaskStore = defineStore('task', {
         // send to api
         let { data } = await mutate(variables)
 
-        if (data.updateTasks) {
+        if (data.updateTask) {
           // update store state
-          this.tasks = this.tasks.map((elem) => 
+          let stateTasks = await this.tasks.map((elem) => 
             elem = {
               ...elem,
               status: elem.id == taskId ? !elem.status : elem.status
             }
           )
+
+          this.updateTasks(stateTasks)
         }
 
         return await data.updateTasks
