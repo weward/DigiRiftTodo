@@ -1,0 +1,14 @@
+@import '_variables';
+
+.hover-btn {
+    transition: transform 0.3s;
+}
+
+.ps {
+    max-height: $list-max-height;
+    height: $list-height;
+}
+
+.list-item:hover {
+    background-color: $color-list-item-hover;
+}

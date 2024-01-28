@@ -21,6 +21,7 @@
     "@mdi/font": "^7.4.47",
     "@pinia/nuxt": "^0.5.1",
     "pinia": "^2.1.7",
+    "sass": "^1.70.0",
     "vue3-perfect-scrollbar": "^1.6.1"
   }
 }

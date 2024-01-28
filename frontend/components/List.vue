@@ -121,15 +121,6 @@ onMounted(() => {
 
 </script>
 
-<style>
-.hover-btn {
-  transition: transform 0.3s;
-}
-.ps {
-    max-height: 360px;
-    height: 360px;
-}
-.list-item:hover {
-    background-color: #f0f0f0;
-}
+<style lang="scss">
+@use "~/assets/scss/main.scss";
 </style>
